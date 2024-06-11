@@ -1,0 +1,33 @@
+.header {
+    height: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+    background-color: green;
+    font-size: large;
+    font-weight: bold;
+
+    .logo-container {
+        height: 100%;
+        width: 70px;
+        padding: 25px;
+    }
+
+    .options {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        .option {
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        a {
+            color: black;
+            text-decoration: unset;
+        }
+    }
+}

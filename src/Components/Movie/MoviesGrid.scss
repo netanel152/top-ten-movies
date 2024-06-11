@@ -1,0 +1,42 @@
+.movies-section {
+    padding: 20px;
+}
+
+.loading,
+.error {
+    text-align: center;
+    font-size: 1.5em;
+    margin-top: 20px;
+}
+
+.movies-grid {
+    display: flex;
+    justify-content: center;
+}
+
+.movie-item {
+    display: flex;
+    justify-content: center;
+}
+
+.movie-card {
+    width: 100%;
+    max-width: 345px;
+}
+
+.movie-image {
+    height: 140px;
+}
+
+.movie-content {
+    text-align: left;
+}
+
+.movie-title {
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+.movie-category {
+    color: #6b6b6b;
+}
