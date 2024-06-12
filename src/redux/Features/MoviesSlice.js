@@ -16,13 +16,13 @@ export const fetchAllMovies = createAsyncThunk('moviesSlice/fetchAllMovies', asy
 const MoviesSlice = createSlice({
   name: 'movieActions',
   initialState: {
-    moviesList: [],
+    movies: [],
     status: 'idle',
     error: null,
   },
   reducers: {
     setAllMoviesData: (state, action) => {
-      state.moviesList = action.payload;
+      state.movies = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -32,7 +32,7 @@ const MoviesSlice = createSlice({
       })
       .addCase(fetchAllMovies.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.moviesList = action.payload.data;
+        state.movies = action.payload.data;
       })
       .addCase(fetchAllMovies.rejected, (state, action) => {
         state.status = 'failed';
