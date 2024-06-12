@@ -66,14 +66,13 @@ const MovieForm = () => {
 
     if (!Object.keys(formErrors).length) {
       setErrors({});
+
       console.log("submit", movieData);
       // Add logic to submit the form data
     } else {
       setErrors(formErrors);
     }
   };
-
-  console.log("asdddd", state);
 
   return (
     <Container fixed>
