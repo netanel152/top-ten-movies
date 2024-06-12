@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -11,13 +11,10 @@ import {
   FormControl,
   FormHelperText,
   Grid,
-  InputLabel,
-  MenuItem,
-  Select,
   Stack,
   TextField,
 } from "@mui/material";
-import { Title } from "components";
+import { Title, CategoryDropDown } from "components";
 
 const initialMovieState = {
   title: "",
@@ -27,6 +24,7 @@ const initialMovieState = {
 
 const MovieForm = () => {
   const { state } = useLocation();
+  const navigate = useNavigate();
 
   const [movieData, setMovieData] = useState(state || initialMovieState);
   const [errors, setErrors] = useState({});
@@ -47,7 +45,7 @@ const MovieForm = () => {
     return clearFormData;
   }, [state, clearFormData]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formErrors = {};
@@ -66,9 +64,15 @@ const MovieForm = () => {
 
     if (!Object.keys(formErrors).length) {
       setErrors({});
-
       console.log("submit", movieData);
-      // Add logic to submit the form data
+
+      // 1.   state ?  await updateMovie(movieData) : await createNewMovie(movieData)
+
+      // 2. reset form data
+
+      // 3. return to the Home page
+
+      navigate("/");
     } else {
       setErrors(formErrors);
     }
@@ -100,23 +104,11 @@ const MovieForm = () => {
 
               <Grid item xs={12} sm={8}>
                 <FormControl fullWidth error={!!errors.category}>
-                  <InputLabel id="category">Category</InputLabel>
-                  <Select
-                    id="category"
-                    name="category"
-                    labelId="category"
-                    label="Category"
-                    value={movieData.category}
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={"Action"}>Action</MenuItem>
-                    <MenuItem value={"Science Fiction"}>
-                      Science Fiction
-                    </MenuItem>
-                    <MenuItem value={"Animation"}>Animation</MenuItem>
-                    <MenuItem value={"Fantasy"}>Fantasy</MenuItem>
-                    <MenuItem value={"Adventure"}>Adventure</MenuItem>
-                  </Select>
+                  <CategoryDropDown
+                    category={movieData.category}
+                    handleChange={handleChange}
+                    isFormDropDown
+                  />
                   {errors.category && (
                     <FormHelperText>{errors.category}</FormHelperText>
                   )}

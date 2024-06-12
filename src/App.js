@@ -5,7 +5,6 @@ import {
 } from "react-router-dom";
 import { Home, MovieForm } from 'pages'
 import { Header, Footer } from 'components'
-import "./App.scss";
 
 const App = () => {
   return (

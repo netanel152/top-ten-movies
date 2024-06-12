@@ -3,3 +3,4 @@ export { default as Footer } from './Footer';
 export { default as Movies } from './Movies';
 export { default as MovieCard } from './MovieCard';
 export { default as Title } from './Title';
+export { default as CategoryDropDown } from './CategoryDropDown';

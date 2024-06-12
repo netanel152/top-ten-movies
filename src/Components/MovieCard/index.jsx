@@ -40,16 +40,7 @@ const MovieCard = ({ movie }) => {
 
   return (
     <>
-      <Grid
-        item
-        key={movie.id}
-        xs={12}
-        sm={6}
-        md={4}
-        spacing={2}
-        lg={3}
-        container
-      >
+      <Grid key={movie.id} xs={12} sm={6} md={4} lg={3} item p={1}>
         <Card
           onClick={() => setIsModalOpen((prev) => !prev)}
           className="movie-card"
@@ -57,7 +48,8 @@ const MovieCard = ({ movie }) => {
         >
           <CardMedia
             component="img"
-            height="500px"
+            height="100%"
+            width="100%"
             // image={movie?.picture}
             image={
               "https://img.yts.mx/assets/images/movies/hit_man_2023/medium-cover.jpg"

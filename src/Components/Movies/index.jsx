@@ -4,7 +4,7 @@ import { Grid, CircularProgress } from "@mui/material";
 import { fetchAllMovies } from "../../redux/Features/MoviesSlice";
 import MovieCard from "components/MovieCard";
 
-const Movies = () => {
+const Movies = ({ selectedCategory }) => {
   const dispatch = useDispatch();
   const { movies } = useSelector((state) => state.movieActions);
   const { status } = useSelector((state) => state.movieActions);
@@ -12,9 +12,9 @@ const Movies = () => {
 
   useEffect(() => {
     if (status === "idle") {
-      dispatch(fetchAllMovies());
+      dispatch(fetchAllMovies(selectedCategory));
     }
-  }, [status, dispatch]);
+  }, [status, dispatch, selectedCategory]);
 
   if (status === "loading") {
     return <CircularProgress />;
@@ -22,13 +22,7 @@ const Movies = () => {
 
   if (status === "succeeded") {
     return (
-      <Grid
-        container
-        spacing={3}
-        display="center"
-        justifyContent="center"
-        mb={8}
-      >
+      <Grid container justifyContent="center" alignItems="center" mb={8}>
         {movies?.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
         ))}

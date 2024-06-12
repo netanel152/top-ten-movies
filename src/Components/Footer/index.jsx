@@ -1,9 +1,14 @@
-import "./Footer.scss";
+import { Box, Container, Typography } from "@mui/material";
+
 const Footer = () => {
   return (
-    <div className="footer-container">
-      <p>Movies LTD | Phone: 076-6654376 | www.movies-ltd.com</p>
-    </div>
+    <Box backgroundColor="#1976d2">
+      <Container fixed>
+        <Typography py={1} sx={{ textAlign: "center" }}>
+          Movies LTD | Phone: 076-6654376 | www.movies-ltd.com
+        </Typography>
+      </Container>
+    </Box>
   );
 };
 

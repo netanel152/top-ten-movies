@@ -1,15 +1,36 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getMoviesAPI } from '../../Services/MovieService';
+import { getMoviesAPI, addNewMovieAPI, updateMovieAPI } from '../../Services/MovieService';
 
-export const fetchAllMovies = createAsyncThunk('moviesSlice/fetchAllMovies', async () => {
+export const fetchAllMovies = createAsyncThunk('moviesSlice/fetchAllMovies', async (selectedCategory) => {
   try {
-    const data = await getMoviesAPI();
-    if (data == null) {
+    const data = await getMoviesAPI(selectedCategory);
+    if (!data) {
       return null;
     }
     return data;
   } catch (error) {
     console.log("getMoviesAPI==>response error", error);
+  }
+});
+
+
+export const createNewMovie = createAsyncThunk('moviesSlice/createNewMovie', async (movieData, thunkAPI) => {
+  try {
+    const response = addNewMovieAPI(movieData);
+    thunkAPI.dispatch(fetchAllMovies());
+    return response;
+  } catch (error) {
+    console.log("addNewMovieAPI==>response error", error);
+  }
+});
+
+export const updateMovie = createAsyncThunk('moviesSlice/updateMovie', async (movieData, thunkAPI) => {
+  try {
+    const response = updateMovieAPI(movieData);
+    thunkAPI.dispatch(fetchAllMovies());
+    return response;
+  } catch (error) {
+    console.log("updateMovieAPI==>response error", error);
   }
 });
 
