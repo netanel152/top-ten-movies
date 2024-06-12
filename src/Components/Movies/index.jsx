@@ -24,10 +24,10 @@ const Movies = () => {
     return (
       <Grid
         container
-        spacing={2}
+        spacing={3}
         display="center"
         justifyContent="center"
-        my={4}
+        mb={8}
       >
         {movies?.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />

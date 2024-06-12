@@ -40,7 +40,16 @@ const MovieCard = ({ movie }) => {
 
   return (
     <>
-      <Grid item key={movie.id} xs={12} sm={6} md={4} spacing={2} lg={3}>
+      <Grid
+        item
+        key={movie.id}
+        xs={12}
+        sm={6}
+        md={4}
+        spacing={2}
+        lg={3}
+        container
+      >
         <Card
           onClick={() => setIsModalOpen((prev) => !prev)}
           className="movie-card"

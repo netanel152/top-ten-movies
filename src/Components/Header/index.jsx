@@ -1,19 +1,26 @@
 import { useNavigate } from "react-router-dom";
-import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
+import { AppBar, Button, Container, Toolbar, Typography } from "@mui/material";
+import { styled } from "@mui/system";
 import SearchIcon from "@mui/icons-material/Search";
 import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
+
+const Logo = styled(Typography)`
+  cursor: pointer;
+  overflow: visible;
+`;
 
 const Header = () => {
   const navigate = useNavigate();
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <AppBar position="static">
+      <Container fixed>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography variant="h6" noWrap component="div" mr={2}>
+          <Logo variant="h6" mr={4} onClick={() => navigate("/")}>
             ABC
-          </Typography>
+          </Logo>
 
+          {/* should use this component */}
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -28,8 +35,8 @@ const Header = () => {
             Create
           </Button>
         </Toolbar>
-      </AppBar>
-    </Box>
+      </Container>
+    </AppBar>
   );
 };
 

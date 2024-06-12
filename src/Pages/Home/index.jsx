@@ -1,16 +1,12 @@
-import "./Home.scss";
-import { Typography } from "@mui/material";
-import { Movies } from "components";
+import { Container } from "@mui/material";
+import { Movies, Title } from "components";
 
 const Home = () => {
   return (
-    <div className="home-container">
-      <Typography variant="h3" my={3}>
-        Top 10 Movies Site
-      </Typography>
-
+    <Container fixed>
+      <Title text={"Top 10 Movies Site"} />
       <Movies />
-    </div>
+    </Container>
   );
 };
 
