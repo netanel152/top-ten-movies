@@ -9,7 +9,8 @@ export const fetchAllMovies = createAsyncThunk('moviesSlice/fetchAllMovies', asy
     }
     return data;
   } catch (error) {
-    console.log("getMoviesAPI==>response error", error);
+    console.log("response error: ", error.response.data.errorMessage);
+    return error;
   }
 });
 
@@ -20,7 +21,8 @@ export const createNewMovie = createAsyncThunk('moviesSlice/createNewMovie', asy
     await thunkAPI.dispatch(fetchAllMovies(""));
     return response;
   } catch (error) {
-    console.log("addNewMovieAPI==>response error", error);
+    console.log("response error: ", error.response.data.errorMessage);
+    return error.response.data
   }
 });
 
@@ -30,7 +32,8 @@ export const updateMovie = createAsyncThunk('moviesSlice/updateMovie', async (mo
     await thunkAPI.dispatch(fetchAllMovies(""));
     return response;
   } catch (error) {
-    console.log("updateMovieAPI==>response error", error);
+    console.log("response error: ", error.response.data.errorMessage);
+    return error.response.data
   }
 });
 
@@ -38,11 +41,11 @@ const MoviesSlice = createSlice({
   name: 'movieActions',
   initialState: {
     movies: [],
-    status: 'idle',
-    error: null,
+    status: '',
+    error: '',
+    responseStatus: null,
   },
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllMovies.pending, (state) => {
@@ -51,10 +54,30 @@ const MoviesSlice = createSlice({
       .addCase(fetchAllMovies.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.movies = action.payload.data;
+        state.responseStatus = action.payload.status;
       })
       .addCase(fetchAllMovies.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
+        state.responseStatus = action.payload ? action.payload.status : null;
+      })
+      .addCase(createNewMovie.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.responseStatus = action.payload.status;
+      })
+      .addCase(createNewMovie.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+        state.responseStatus = action.payload ? action.payload.status : null;
+      })
+      .addCase(updateMovie.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.responseStatus = action.payload.status;
+      })
+      .addCase(updateMovie.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+        state.responseStatus = action.payload ? action.payload.status : null;
       });
   },
 });
