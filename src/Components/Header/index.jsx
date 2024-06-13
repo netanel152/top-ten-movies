@@ -1,11 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { AppBar, Button, Container, Toolbar, Typography } from "@mui/material";
-import { styled } from "@mui/system";
-
-const Logo = styled(Typography)`
-  cursor: pointer;
-  overflow: visible;
-`;
+import "./header.scss";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -14,9 +9,14 @@ const Header = () => {
     <AppBar position="static">
       <Container fixed>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Logo variant="h6" mr={4} onClick={() => navigate("/")}>
+          <Typography
+            variant="h6"
+            mr={4}
+            className="logo"
+            onClick={() => navigate("/")}
+          >
             ABC
-          </Logo>
+          </Typography>
 
           <Button color="inherit" onClick={() => navigate("/movie")}>
             Create

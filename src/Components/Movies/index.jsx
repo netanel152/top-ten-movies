@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid, CircularProgress } from "@mui/material";
-import { fetchAllMovies } from "../../redux/Features/MoviesSlice";
+import { Grid, CircularProgress, Box } from "@mui/material";
+import { fetchAllMovies } from "../../store/features/MoviesSlice";
 import MovieCard from "components/MovieCard";
 
-const Movies = ({ selectedCategory }) => {
+const Movies = () => {
   const dispatch = useDispatch();
-  const { movies } = useSelector((state) => state.movieActions);
-  const { status } = useSelector((state) => state.movieActions);
-  const { error } = useSelector((state) => state.movieActions);
+  const { selectedCategory, movies, status, error } = useSelector(
+    (state) => state.movieActions
+  );
 
   useEffect(() => {
     if (status === "idle") {
@@ -17,7 +17,18 @@ const Movies = ({ selectedCategory }) => {
   }, [status, dispatch, selectedCategory]);
 
   if (status === "loading") {
-    return <CircularProgress />;
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "50vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
 
   if (status === "succeeded") {

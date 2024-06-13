@@ -1,4 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import {
+  createNewMovie,
+  setSelectedCategory,
+  updateMovie,
+} from "../../store/features/MoviesSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
@@ -23,6 +29,9 @@ const initialMovieState = {
 };
 
 const MovieForm = () => {
+  const defaultMoviePic =
+    "https://w7.pngwing.com/pngs/116/765/png-transparent-clapperboard-computer-icons-film-movie-poster-angle-text-logo-thumbnail.png";
+  const dispatch = useDispatch();
   const { state } = useLocation();
   const navigate = useNavigate();
 
@@ -38,6 +47,7 @@ const MovieForm = () => {
 
   const clearFormData = useCallback(() => {
     setMovieData(initialMovieState);
+    setSelectedCategory("");
     setErrors({});
   }, []);
 
@@ -64,14 +74,14 @@ const MovieForm = () => {
 
     if (!Object.keys(formErrors).length) {
       setErrors({});
+      movieData.imagePath = defaultMoviePic;
       console.log("submit", movieData);
 
-      // 1.   state ?  await updateMovie(movieData) : await createNewMovie(movieData)
+      state
+        ? dispatch(updateMovie(movieData))
+        : dispatch(createNewMovie(movieData));
 
-      // 2. reset form data
-
-      // 3. return to the Home page
-
+      clearFormData();
       navigate("/");
     } else {
       setErrors(formErrors);

@@ -10,33 +10,24 @@ import {
   Button,
   IconButton,
 } from "@mui/material";
-import "./MovieCard.scss";
+import "./movieCard.scss";
 import { Close } from "@mui/icons-material";
 
 const MovieCard = ({ movie }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const defaultMoviePic = `${process.env.PUBLIC_URL}/images/default_movie_pic.png`;
 
   const navigate = useNavigate();
-
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    borderRadius: "4px",
-    outline: 0,
-    boxShadow: 24,
-    p: 4,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  };
 
   const updateMovie = () => {
     navigate("/movie", { state: movie });
   };
+
+  const handleError = (event) => {
+    event.target.src = defaultMoviePic;
+  };
+
+  const moviePicture = movie?.imagePath || defaultMoviePic;
 
   return (
     <>
@@ -50,20 +41,16 @@ const MovieCard = ({ movie }) => {
             component="img"
             height="100%"
             width="100%"
-            // image={movie?.picture}
-            image={
-              "https://img.yts.mx/assets/images/movies/hit_man_2023/medium-cover.jpg"
-            }
+            image={moviePicture}
+            onError={handleError}
             alt={movie?.title}
           />
         </Card>
       </Grid>
 
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <Box sx={style}>
-          <Box
-            sx={{ display: "flex", justifyContent: "flex-end", width: "100%" }}
-          >
+        <Box className="modal-box">
+          <Box className="modal-header">
             <IconButton
               aria-label="close"
               onClick={() => setIsModalOpen(false)}
@@ -75,12 +62,16 @@ const MovieCard = ({ movie }) => {
           <Box
             component="img"
             alt={`${movie?.title} Image`}
-            src="https://img.yts.mx/assets/images/movies/hit_man_2023/medium-cover.jpg"
+            src={moviePicture}
+            onError={handleError}
+            className="modal-image"
           />
 
-          <Typography variant="h6" component="h2">
-            {movie?.title}
-          </Typography>
+          <Box className="modal-title">
+            <Typography variant="h6" component="h2">
+              {movie?.title}
+            </Typography>
+          </Box>
 
           <Typography sx={{ my: 1 }}>Category: {movie?.category}</Typography>
 

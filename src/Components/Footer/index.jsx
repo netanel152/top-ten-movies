@@ -5,7 +5,7 @@ const Footer = () => {
     <Box backgroundColor="#1976d2">
       <Container fixed>
         <Typography py={1} sx={{ textAlign: "center" }}>
-          Movies LTD | Phone: 076-6654376 | www.movies-ltd.com
+          ABC Movies LTD | Phone: 076-6654376 | www.abc-movies-ltd.com
         </Typography>
       </Container>
     </Box>
