@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid, CircularProgress, Box } from "@mui/material";
+import { Grid, CircularProgress, Box, Typography } from "@mui/material";
 import { fetchAllMovies } from "../../store/features/MoviesSlice";
 import MovieCard from "components/MovieCard";
 
 const Movies = ({ selectedCategory, setSelectedCategory }) => {
   const dispatch = useDispatch();
-  const { movies, status, error } = useSelector((state) => state.movieActions);
+  const { movies, status } = useSelector((state) => state.movieActions);
 
   useEffect(() => {
     dispatch(fetchAllMovies(selectedCategory));
@@ -42,7 +42,20 @@ const Movies = ({ selectedCategory, setSelectedCategory }) => {
   }
 
   if (status === "failed") {
-    return <div>{error}</div>;
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "50vh",
+        }}
+      >
+        <Typography variant="h5">
+          There was an issue loading the movies. Please try again later.
+        </Typography>
+      </Box>
+    );
   }
 };
 
