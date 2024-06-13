@@ -1,9 +1,18 @@
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { fetchAllMovies } from "store/features/MoviesSlice";
 import { AppBar, Button, Container, Toolbar, Typography } from "@mui/material";
 import "./header.scss";
 
-const Header = () => {
+const Header = ({ setSelectedCategory }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleBackHome = () => {
+    dispatch(fetchAllMovies(""));
+    setSelectedCategory("");
+    navigate("/");
+  };
 
   return (
     <AppBar position="static">
@@ -13,7 +22,7 @@ const Header = () => {
             variant="h6"
             mr={4}
             className="logo"
-            onClick={() => navigate("/")}
+            onClick={handleBackHome}
           >
             ABC
           </Typography>

@@ -4,17 +4,17 @@ import { Grid, CircularProgress, Box } from "@mui/material";
 import { fetchAllMovies } from "../../store/features/MoviesSlice";
 import MovieCard from "components/MovieCard";
 
-const Movies = () => {
+const Movies = ({ selectedCategory, setSelectedCategory }) => {
   const dispatch = useDispatch();
-  const { selectedCategory, movies, status, error } = useSelector(
-    (state) => state.movieActions
-  );
+  const { movies, status, error } = useSelector((state) => state.movieActions);
 
   useEffect(() => {
-    if (status === "idle") {
-      dispatch(fetchAllMovies(selectedCategory));
-    }
-  }, [status, dispatch, selectedCategory]);
+    dispatch(fetchAllMovies(selectedCategory));
+  }, [dispatch, selectedCategory]);
+
+  useEffect(() => {
+    return setSelectedCategory("");
+  }, [setSelectedCategory]);
 
   if (status === "loading") {
     return (

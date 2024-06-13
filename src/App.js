@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -8,6 +9,8 @@ import { Header, Footer } from 'components'
 import { Box } from "@mui/material";
 
 const App = () => {
+  const [selectedCategory, setSelectedCategory] = useState("");
+
   return (
     <Box
       sx={{
@@ -17,10 +20,10 @@ const App = () => {
       }}
     >
       <Router>
-        <Header />
+        <Header setSelectedCategory={setSelectedCategory} />
         <Box sx={{ flexGrow: 1 }}>
           <Routes>
-            <Route exact path="/" element={<Home />}></Route>
+            <Route exact path="/" element={<Home selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />}></Route>
             <Route exact path="/movie" element={<MovieForm />}></Route>
           </Routes>
         </Box>

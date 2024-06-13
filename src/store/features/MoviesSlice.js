@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getMoviesAPI, addNewMovieAPI, updateMovieAPI } from '../../services/MovieService';
 
 export const fetchAllMovies = createAsyncThunk('moviesSlice/fetchAllMovies', async (selectedCategory) => {
-  console.log("fetchAllMovies ==> moviesSlice ==> selectedCategory", selectedCategory);
   try {
     const data = await getMoviesAPI(selectedCategory);
     if (!data) {
@@ -17,8 +16,8 @@ export const fetchAllMovies = createAsyncThunk('moviesSlice/fetchAllMovies', asy
 
 export const createNewMovie = createAsyncThunk('moviesSlice/createNewMovie', async (movieData, thunkAPI) => {
   try {
-    const response = addNewMovieAPI(movieData);
-    thunkAPI.dispatch(fetchAllMovies(""));
+    const response = await addNewMovieAPI(movieData);
+    await thunkAPI.dispatch(fetchAllMovies(""));
     return response;
   } catch (error) {
     console.log("addNewMovieAPI==>response error", error);
@@ -27,8 +26,8 @@ export const createNewMovie = createAsyncThunk('moviesSlice/createNewMovie', asy
 
 export const updateMovie = createAsyncThunk('moviesSlice/updateMovie', async (movieData, thunkAPI) => {
   try {
-    const response = updateMovieAPI(movieData);
-    thunkAPI.dispatch(fetchAllMovies(""));
+    const response = await updateMovieAPI(movieData);
+    await thunkAPI.dispatch(fetchAllMovies(""));
     return response;
   } catch (error) {
     console.log("updateMovieAPI==>response error", error);
@@ -41,12 +40,8 @@ const MoviesSlice = createSlice({
     movies: [],
     status: 'idle',
     error: null,
-    selectedCategory: "",
   },
   reducers: {
-    setSelectedCategory(state, action) {
-      state.selectedCategory = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -63,7 +58,5 @@ const MoviesSlice = createSlice({
       });
   },
 });
-
-export const { setSelectedCategory } = MoviesSlice.actions;
 
 export default MoviesSlice.reducer;

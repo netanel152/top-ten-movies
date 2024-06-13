@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const getMoviesAPI = async (categoryValue) => {
-  console.log("getMoviesAPI==>categoryValue==>", categoryValue)
   const response = await axios.post(process.env.REACT_APP_API_URL + 'all-movies',
     { take: 10, skip: 0, searchType: 2, categoryValue });
   return response.data;

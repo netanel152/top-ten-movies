@@ -1,10 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  createNewMovie,
-  setSelectedCategory,
-  updateMovie,
-} from "../../store/features/MoviesSlice";
+import { createNewMovie, updateMovie } from "../../store/features/MoviesSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
@@ -47,7 +43,6 @@ const MovieForm = () => {
 
   const clearFormData = useCallback(() => {
     setMovieData(initialMovieState);
-    setSelectedCategory("");
     setErrors({});
   }, []);
 
@@ -75,7 +70,6 @@ const MovieForm = () => {
     if (!Object.keys(formErrors).length) {
       setErrors({});
       movieData.imagePath = defaultMoviePic;
-      console.log("submit", movieData);
 
       state
         ? dispatch(updateMovie(movieData))

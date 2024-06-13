@@ -1,16 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
-import { setSelectedCategory } from "../../store/features/MoviesSlice";
 import { Box, Container } from "@mui/material";
 import { CategoryDropDown, Movies, Title } from "components";
 
-const Home = () => {
-  const dispatch = useDispatch();
-  const selectedCategory = useSelector(
-    (state) => state.movieActions.selectedCategory
-  );
-
+const Home = ({ selectedCategory, setSelectedCategory }) => {
   const handleChangeCategory = ({ target: { value } }) => {
-    dispatch(setSelectedCategory(value));
+    setSelectedCategory(value);
   };
 
   return (
@@ -24,7 +17,10 @@ const Home = () => {
         />
       </Box>
 
-      <Movies />
+      <Movies
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
     </Container>
   );
 };
