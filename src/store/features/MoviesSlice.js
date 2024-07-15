@@ -22,7 +22,7 @@ export const createNewMovie = createAsyncThunk('moviesSlice/createNewMovie', asy
     return response;
   } catch (error) {
     console.log("response error: ", error.response.data.errorMessage);
-    return error.response.data
+    return thunkAPI.rejectWithValue(error.response.data);
   }
 });
 
@@ -33,7 +33,7 @@ export const updateMovie = createAsyncThunk('moviesSlice/updateMovie', async (mo
     return response;
   } catch (error) {
     console.log("response error: ", error.response.data.errorMessage);
-    return error.response.data
+    return thunkAPI.rejectWithValue(error.response.data);
   }
 });
 
@@ -67,8 +67,7 @@ const MoviesSlice = createSlice({
       })
       .addCase(createNewMovie.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.error.message;
-        state.responseStatus = action.payload ? action.payload.status : null;
+        state.error = action.payload ? action.payload.errorMessage : action.error.message;
       })
       .addCase(updateMovie.fulfilled, (state, action) => {
         state.status = 'succeeded';
@@ -76,8 +75,7 @@ const MoviesSlice = createSlice({
       })
       .addCase(updateMovie.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.error.message;
-        state.responseStatus = action.payload ? action.payload.status : null;
+        state.error = action.payload ? action.payload.errorMessage : action.error.message;
       });
   },
 });
